@@ -1,0 +1,316 @@
+✅ Practical 1: Study the Fundamentals of IoT and its Components
+
+Aim:To study the fundamentals of the Internet of Things (IoT) and understand its components, architecture, and applications.
+
+Software and Hardware Required:Not applicable (theoretical)
+
+Theory:The Internet of Things (IoT) refers to a network of physical devices embedded with sensors, software, and technologies that enable them to connect and exchange data. These devices range from household appliances to industrial machines, all working to make systems smarter and more efficient.
+
+IoT architecture includes:
+
+Sensing Layer: Devices and sensors that collect real-world data.
+
+Network Layer: Transports data via Wi-Fi, Bluetooth, etc.
+
+Data Processing Layer: Processes and stores the collected data.
+
+Application Layer: Interfaces like mobile apps or dashboards for user interaction.
+
+IoT applications span across smart homes, agriculture, healthcare, transportation, and industry. It enables automation, remote monitoring, and analytics-driven decision-making.
+
+Conclusion:IoT provides a foundation for building smart systems by integrating hardware, software, and network technologies to enable real-time insights and automation.
+
+✅ Practical 2: Familiarization with Arduino Tinkercad (Online Simulation)
+
+Aim:To familiarize with the Arduino Tinkercad simulator and perform necessary software setup.
+
+Software and Hardware Required:
+
+Software: Tinkercad (Online)
+
+Hardware: None (Simulated)
+
+Theory:Tinkercad is an online simulation platform where users can design circuits and write Arduino programs without physical components. It’s ideal for beginners to practice safely and visualize their circuits.
+
+Program:
+
+void setup() {
+  pinMode(13, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(13, HIGH);
+  delay(1000);
+  digitalWrite(13, LOW);
+  delay(1000);
+}
+
+Program Explanation:Pin 13 is configured as an output to control the onboard LED. It blinks ON and OFF every second using the delay() function.
+
+Conclusion:Tinkercad helps simulate real-world Arduino projects and build confidence without physical hardware.
+
+✅ Practical 3: LED Blinking with Arduino
+
+Aim:To design and implement a program that interfaces with Arduino to control the blinking of a LED.
+
+Software and Hardware Required:
+
+Software: Arduino IDE / Tinkercad
+
+Hardware: Arduino Uno, LED, 220-ohm resistor, Breadboard, Jumper wires
+
+Theory:LED blinking is the basic test of digital output control. It helps in understanding the configuration of I/O pins in Arduino.
+
+Program:
+
+void setup() {
+  pinMode(8, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(8, HIGH);
+  delay(1000);
+  digitalWrite(8, LOW);
+  delay(1000);
+}
+
+Program Explanation:Pin 8 is used to turn an LED ON for 1 second and OFF for 1 second continuously. It demonstrates simple digital control.
+
+Conclusion:This practical develops a foundation for controlling outputs using Arduino.
+
+✅ Practical 4: Traffic Light Simulation
+
+Aim:To design and implement a traffic light system using Arduino.
+
+Software and Hardware Required:
+
+Software: Arduino IDE / Tinkercad
+
+Hardware: Arduino Uno, Red/Yellow/Green LEDs, Resistors, Breadboard, Jumper wires
+
+Theory:Simulating a traffic light system using LEDs helps understand sequential control and timing logic.
+
+Program:
+
+void setup() {
+  pinMode(2, OUTPUT); // Red
+  pinMode(3, OUTPUT); // Yellow
+  pinMode(4, OUTPUT); // Green
+}
+
+void loop() {
+  digitalWrite(2, HIGH);
+  delay(3000);
+  digitalWrite(2, LOW);
+  digitalWrite(3, HIGH);
+  delay(1000);
+  digitalWrite(3, LOW);
+  digitalWrite(4, HIGH);
+  delay(3000);
+  digitalWrite(4, LOW);
+}
+
+Program Explanation:LEDs simulate red, yellow, and green lights of a traffic system using delays and pin control.
+
+Conclusion:This practical helps understand basic automation and control systems.
+
+✅ Practical 5: LDR Interface with LED
+
+Aim:To design a program that uses an LDR sensor with Arduino to control an LED.
+
+Software and Hardware Required:
+
+Software: Arduino IDE / Tinkercad
+
+Hardware: Arduino Uno, LDR, LED, Resistor, Breadboard
+
+Theory:An LDR (Light Dependent Resistor) changes resistance based on light intensity. It is used to automate lighting systems.
+
+Program:
+
+int ldrPin = A0;
+int ledPin = 8;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int ldrValue = analogRead(ldrPin);
+  Serial.println(ldrValue);
+  if (ldrValue < 500) {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+  delay(500);
+}
+
+Program Explanation:LDR value is read from analog pin A0. If the light intensity is low, the LED turns ON.
+
+Conclusion:This practical introduces basic sensor interfacing and analog signal handling.
+
+✅ Practical 6: Temperature Sensor (TMR36) with LED
+
+Aim:To interface a TMR36 temperature sensor with Arduino and control LED blinking based on temperature levels.
+
+Software and Hardware Required:
+
+Software: Arduino IDE
+
+Hardware: Arduino Uno, TMR36 Sensor, LED, Breadboard
+
+Theory:Temperature sensors provide analog signals proportional to temperature. LED blinking rate changes with temperature levels.
+
+Program:
+
+int sensorPin = A0;
+int ledPin = 8;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int val = analogRead(sensorPin);
+  float voltage = val * 5.0 / 1023.0;
+  float tempC = (voltage - 0.5) * 100;
+  Serial.println(tempC);
+
+  if (tempC < 25) delay(1000);
+  else if (tempC < 35) delay(500);
+  else delay(200);
+
+  digitalWrite(ledPin, !digitalRead(ledPin));
+}
+
+Program Explanation:Temperature is calculated from voltage. LED blinks faster as temperature increases.
+
+Conclusion:Demonstrates real-time environmental monitoring and output control.
+
+✅ Practical 7: DHT11 Sensor Interface
+
+Aim:To interface a DHT11 temperature and humidity sensor and monitor environmental changes.
+
+Software and Hardware Required:
+
+Software: Arduino IDE, DHT Library
+
+Hardware: Arduino Uno, DHT11 Sensor, Breadboard
+
+Theory:DHT11 gives digital readings of temperature and humidity. It’s commonly used in smart weather stations.
+
+Program:
+
+#include <DHT.h>
+#define DHTPIN 2
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+}
+
+void loop() {
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  Serial.print("Humidity: "); Serial.print(h);
+  Serial.print("%  Temperature: "); Serial.println(t);
+  delay(2000);
+}
+
+Program Explanation:The DHT11 sensor reads humidity and temperature, which are printed on the serial monitor.
+
+Conclusion:Useful in IoT-based climate monitoring and control applications.
+
+✅ Practical 8: Buzzer Control with Arduino
+
+Aim:To design and demonstrate buzzer control using Arduino.
+
+Software and Hardware Required:
+
+Software: Arduino IDE
+
+Hardware: Arduino Uno, Buzzer, Resistor
+
+Theory:Buzzers are used for audio alerts and alarms in embedded systems. Digital output pins can control them.
+
+Program:
+
+int buzzer = 9;
+
+void setup() {
+  pinMode(buzzer, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(buzzer, HIGH);
+  delay(1000);
+  digitalWrite(buzzer, LOW);
+  delay(1000);
+}
+
+Program Explanation:The buzzer is turned ON and OFF every second to generate a beeping sound.
+
+Conclusion:Demonstrates digital control of sound-based output devices.
+
+✅ Practical 9: Hello World Program on Wokwi
+
+Aim:To use Wokwi online simulator and run a basic "Hello World" program on Arduino Uno.
+
+Software and Hardware Required:
+
+Software: Wokwi Simulator
+
+Hardware: None (Simulated)
+
+Theory:Wokwi is a simulator like Tinkercad but allows advanced components and precise control. "Hello World" refers to printing on the serial monitor.
+
+Program:
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("Hello, World!");
+}
+
+void loop() {
+  // Nothing here
+}
+
+Program Explanation:Prints "Hello, World!" to the serial monitor using the Wokwi simulator.
+
+Conclusion:Familiarizes with serial output and using Wokwi as an alternative simulator.
+
+✅ Practical 10: Mini Piano using Wokwi
+
+Aim:To design a mini piano circuit using Wokwi simulator.
+
+Software and Hardware Required:
+
+Software: Wokwi
+
+Hardware: Buzzer, Push buttons (simulated)
+
+Theory:Each button press corresponds to a tone played through a buzzer using the Arduino tone() function.
+
+Program:
+
+void setup() {
+  pinMode(2, INPUT);
+  pinMode(3, INPUT);
+  pinMode(8, OUTPUT);
+}
+
+void loop() {
+  if(digitalRead(2)==HIGH) tone(8, 262, 200);
+  if(digitalRead(3)==HIGH) tone(8, 294, 200);
+  delay(100);
+}
+
+Program Explanation:Two buttons generate different musical tones through a buzzer connected to pin 8.
+
+Conclusion:Shows how to create interactive sound-based projects using simple inputs and outputs.
